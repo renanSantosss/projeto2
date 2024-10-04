@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura na Floresta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aventura na Floresta</h1>
+    <p id="story">Você está na entrada de uma floresta misteriosa. Você vê dois caminhos: um à esquerda e outro à direita. Qual caminho você escolherá?</p>
+    <img id="scene-image" src="floresta.jpg" alt="Floresta">
+<div>
+    <button class="button" onclick="choose('left')">Ir à esquerda</button>
+    <button class="button" onclick="choose('right')">Ir à direita</button>
+</div>
+    <script>
+        function choose(direction) {
+            var story = document.getElementById('story');
+            var image = document.getElementById('scene-image');
+            if (direction === 'left') {
+                story.innerHTML = "Você seguiu o caminho à esquerda e encontrou uma cabana encantada. Dentro, um velho sábio oferece um desafio. Você aceitará o desafio ou sairá da cabana?";
+                image.src = "cabana.jpg";
+                image.alt = "Cabana Encantada";
+                document.querySelector('button[onclick="choose(\'left\')"]').style.display = 'none';
+                document.querySelector('button[onclick="choose(\'right\')"]').style.display = 'none';
+                var newButtons = `
+                    <button class="button" onclick="challenge('accept')">Aceitar o desafio</button>
+                    <button class="button" onclick="challenge('leave')">Sair da cabana</button>
+                `;
+                document.body.insertAdjacentHTML('beforeend', newButtons);
+            } else if (direction === 'right') {
+                story.innerHTML = "Você seguiu o caminho à direita e encontrou um rio largo. Você pode tentar atravessar o rio ou voltar e escolher o outro caminho.";
+                image.src = "rio.jpg";
+                image.alt = "Rio Largo";
+                document.querySelector('button[onclick="choose(\'left\')"]').style.display = 'none';
+                document.querySelector('button[onclick="choose(\'right\')"]').style.display = 'none';
+                var newButtons = `
+                    <button class="button" onclick="river('cross')">Atravessar o rio</button>
+                    <button class="button" onclick="river('back')">Voltar</button>
+                `;
+                document.body.insertAdjacentHTML('beforeend', newButtons);
+            }
+        }
+
+        function challenge(action) {
+            var story = document.getElementById('story');
+            var image = document.getElementById('scene-image');
+            if (action === 'accept') {
+                story.innerHTML = "Você aceitou o desafio e, após um teste de sabedoria, ganhou um amuleto mágico. Com o amuleto, você pode sair da floresta ou procurar mais aventuras. O que você fará?";
+                image.src = "amuleto.jpg";
+                image.alt = "Amuleto Mágico";
+                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+                var newButtons = `
+                    <button class="button" onclick="amulet('leave')">Sair da floresta</button>
+                    <button class="button" onclick="amulet('explore')">Procurar mais aventuras</button>
+                `;
+                document.body.insertAdjacentHTML('beforeend', newButtons);
+            } else {
+                story.innerHTML = "Você decidiu sair da cabana e retornou à entrada da floresta. No caminho, você encontrou um grupo de viajantes que lhe oferecem uma carona para a cidade. Parabéns, você encontrou um novo caminho!";
+                image.src = "caminho.jpg";
+                image.alt = "Mercado de Pulgas";
+                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+            }
+        }
+
+        function amulet(action) {
+            var story = document.getElementById('story');
+            var image = document.getElementById('scene-image');
+            if (action === 'leave') {
+                story.innerHTML = "Você usou o amuleto para sair da floresta e chegou a uma cidade movimentada. A aventura chegou ao fim, mas novas jornadas o esperam!";
+                image.src = "cidade.jpg";
+                image.alt = "Cidade";
+                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+            } else {
+                story.innerHTML = "Você decidiu explorar mais. A floresta revela um portal mágico que leva a um reino encantado. Parabéns, você encontrou um mundo novo!";
+                image.src = "reino.jpg";
+                image.alt = "Reino Encantado";
+                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+            }
+        }
+
+        function river(action) {
+            var story = document.getElementById('story');
+            var image = document.getElementById('scene-image');
+            if (action === 'cross') {
+                story.innerHTML = "Você atravessou o rio com sucesso e encontrou uma caverna escondida. Dentro da caverna, há um baú cheio de ouro e joias. Parabéns, você encontrou um tesouro!";
+                image.src = "caverna.jpg";
+                image.alt = "Caverna com Tesouro";
+                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+            } else {
+                story.innerHTML = "Você decidiu voltar e retomar o caminho inicial. Na entrada da floresta, você encontra um mercado de pulgas com itens mágicos à venda. Talvez você encontre algo interessante!";
+                image.src = "mercado.jpg";
+                image.alt = "Mercado de Pulgas";
+                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+            }
+        }
+    </script>
+</body>
+</html>
+
